@@ -72,8 +72,6 @@ resource "aws_instance" "bbb_server" {
   key_name        = aws_key_pair.bbb_server.key_name
   security_groups = [aws_security_group.bbb_server.name]
 
-  user_data = file("userdata.sh")
-
   ebs_block_device {
     device_name = "/dev/sda1"
     volume_type = "gp2"
