@@ -1,0 +1,15 @@
+- hosts: all
+  tasks:
+  - name: Download bbb-install.sh
+    get_url:
+      url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+      dest: ~/bbb-install.sh
+
+  - name: Install bigbluebutton
+    shell: sudo ~/bbb-install.sh
+    sudo: true
+    
+  - name: Delete bbb-install.sh
+    file: 
+      path: ~/bbb-install.sh 
+      state: absent

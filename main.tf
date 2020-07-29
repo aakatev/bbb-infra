@@ -9,7 +9,7 @@ data "aws_route53_zone" "bbb_server" {
 
 resource "aws_route53_record" "bbb_server" {
   zone_id = data.aws_route53_zone.bbb_server.zone_id
-  name    = var.domain_name
+  name    = "server-1.${var.domain_name}"
   type    = "A"
   ttl     = "300"
   records = [aws_eip.bbb_server.public_ip]
