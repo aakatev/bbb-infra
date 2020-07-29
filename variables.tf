@@ -1,9 +1,14 @@
+variable "aws_profile" {
+  description = "The AWS profile to use."
+  default     = "default"
+}
+
 variable "aws_region" {
   description = "The AWS region to create things in."
   default     = "us-east-1"
 }
 
-# ubuntu-16.04 (x64)
+# ubuntu-16.04 (x64) t2.large
 variable "aws_amis" {
   default = {
     "us-east-1" = "ami-039a49e70ea773ffc"
@@ -11,7 +16,12 @@ variable "aws_amis" {
   }
 }
 
-variable "key_name" {
-  description = "Name of the SSH keypair to use in AWS."
+variable "key_path" {
+  description = "Path to your SSH key."
+  default = "~/.ssh/id_rsa.pub"
 }
 
+variable "volume_size" {
+  description = "Default volume size in GiB."
+  default = 80
+}

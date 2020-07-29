@@ -1,21 +1,30 @@
-# Specify the provider and access details
 provider "aws" {
+  profile = var.aws_profile
   region = var.aws_region
 }
 
-resource "aws_eip" "default" {
-  instance = aws_instance.web.id
+resource "aws_eip" "bbb_server" {
+  instance = aws_instance.bbb_server.id
   vpc      = true
+
+  tags = {
+    terraform = true
+  }
 }
 
+resource "aws_key_pair" "bbb_server" {
+  key_name   = "bbb-key"
+  public_key = file(var.key_path)
 
-# Our default security group to access
-# the instances over SSH and HTTP
-resource "aws_security_group" "default" {
-  name        = "eip_example"
-  description = "Used in the terraform"
+  tags = {
+    terraform = true
+  }
+}
 
-  # SSH access from anywhere
+resource "aws_security_group" "bbb_server" {
+  name        = "bbb-server-security-group"
+  description = "security group for bbb-server"
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -23,7 +32,6 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTPS access from anywhere
   ingress {
     from_port   = 443
     to_port     = 443
@@ -31,7 +39,6 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTP access from anywhere
   ingress {
     from_port   = 80
     to_port     = 80
@@ -39,7 +46,6 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTP access from anywhere
   ingress {
     from_port   = 16384
     to_port     = 32768
@@ -47,46 +53,35 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # outbound internet access
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    terraform = true
+  }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "bbb_server" {
   instance_type = "t2.large"
-
-  # Lookup the correct AMI based on the region
-  # we specified
   ami = var.aws_amis[var.aws_region]
 
-  # The name of our SSH keypair you've created and downloaded
-  # from the AWS console.
-  #
-  # https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:
-  #
-  key_name = var.key_name
-
-  # Our Security group to allow HTTP and SSH access
-  security_groups = [aws_security_group.default.name]
-
-  # We run a remote provisioner on the instance after creating it.
-  # In this case, we just install nginx and start it. By default,
-  # this should be on port 80
+  key_name = aws_key_pair.bbb_server.key_name
+  security_groups = [aws_security_group.bbb_server.name]
+  
   user_data = file("userdata.sh")
-
-  #Instance tags
-  tags = {
-    Name = "eip-example"
-  }
 
   ebs_block_device {
     device_name = "/dev/sda1"
     volume_type = "gp2"
-    volume_size = 30
+    volume_size = var.volume_size
+  }
+
+  tags = {
+    terraform = true
   }
 }
 
