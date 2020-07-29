@@ -1,6 +1,6 @@
 provider "aws" {
   profile = var.aws_profile
-  region = var.aws_region
+  region  = var.aws_region
 }
 
 resource "aws_eip" "bbb_server" {
@@ -67,11 +67,11 @@ resource "aws_security_group" "bbb_server" {
 
 resource "aws_instance" "bbb_server" {
   instance_type = "t2.large"
-  ami = var.aws_amis[var.aws_region]
+  ami           = var.aws_amis[var.aws_region]
 
-  key_name = aws_key_pair.bbb_server.key_name
+  key_name        = aws_key_pair.bbb_server.key_name
   security_groups = [aws_security_group.bbb_server.name]
-  
+
   user_data = file("userdata.sh")
 
   ebs_block_device {
