@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  tasks:
+  - name: Download bbb-install.sh
+    get_url:
+      url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+      dest: ~/bbb-install.sh
+      mode: 0700
+
+  - name: Run bbb-install.sh
+    command: /bin/bash ~/bbb-install.sh -v xenial-22 -s server-1.edduus.network -e artem.akatev@edduus.com -w
+    
+  - name: Delete bbb-install.sh
+    file: 
+      path: ~/bbb-install.sh 
+      state: absent

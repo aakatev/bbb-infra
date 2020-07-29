@@ -2,3 +2,4 @@
 *.tfstate
 *.tfstate.backup
 key*
+*.auto.tfvars

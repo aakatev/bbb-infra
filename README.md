@@ -1,18 +1,21 @@
-# bigbluebutton-terraform
+# bigbluebutton-deploy
 
-Terraform templates to provision a bigbluebutton server
-
-**Note: currently you are still required to install the bigbluebutton stack manually.** The best way to do so is [bbb-install.sh](https://github.com/bigbluebutton/bbb-install)
+Terraform templates to provision a bigbluebutton server. Ansible playbook to run [bbb-install.sh](https://github.com/bigbluebutton/bbb-install)
 
 ## Requirements
 
 - AWS Account
 - Route53 Domain Name and Domain Zone
-- Terraform 12.x
+- Terraform 12.x+
+- Ansible 2.9+
 
 ## Usage
 
-Configure [`variables.tf`](variables.tf) file
+Adjust configurations
+
+- [`variables.tf`](variables.tf)
+- [`ansible.cfg`](ansible.cfg)
+- [`hosts`](hosts)
 
 Initiate a new Terraform state
 
@@ -24,6 +27,12 @@ Plan and apply your changes, provisionning the resources
 
 ```sh
 terraform apply 
+```
+
+Run ansible playbook
+
+```sh
+ansible-playbook playbook.yaml
 ```
 
 In case you need to destroy the resources

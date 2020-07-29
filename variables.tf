@@ -22,7 +22,7 @@ variable "domain_name" {
 }
 
 variable "key_path" {
-  description = "Path to your SSH key."
+  description = "Path to your SSH key (public key)."
   default     = "~/.ssh/id_rsa.pub"
 }
 
