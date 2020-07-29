@@ -16,12 +16,17 @@ variable "aws_amis" {
   }
 }
 
+variable "domain_name" {
+  description = "Server domain name."
+  default     = "example.com"
+}
+
 variable "key_path" {
   description = "Path to your SSH key."
   default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "volume_size" {
-  description = "Default volume size in GiB."
+  description = "Volume size in GiB."
   default     = 80
 }

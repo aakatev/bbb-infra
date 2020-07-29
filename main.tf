@@ -3,6 +3,18 @@ provider "aws" {
   region  = var.aws_region
 }
 
+data "aws_route53_zone" "bbb_server" {
+  name = var.domain_name
+}
+
+resource "aws_route53_record" "bbb_server" {
+  zone_id = data.aws_route53_zone.bbb_server.zone_id
+  name    = var.domain_name
+  type    = "A"
+  ttl     = "300"
+  records = [aws_eip.bbb_server.public_ip]
+}
+
 resource "aws_eip" "bbb_server" {
   instance = aws_instance.bbb_server.id
   vpc      = true
