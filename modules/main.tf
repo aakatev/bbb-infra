@@ -8,6 +8,11 @@ variable "domain_name" {
   type        = string
 }
 
+variable "subdomain_name" {
+  description = "Server subdomain name"
+  type        = any
+}
+
 variable "key_path" {
   description = "Path to your SSH key (public key)"
   type        = string
@@ -24,7 +29,7 @@ data "aws_route53_zone" "bbb_server" {
 
 resource "aws_route53_record" "bbb_server" {
   zone_id = data.aws_route53_zone.bbb_server.zone_id
-  name    = "server-1.${var.domain_name}"
+  name    = ((var.subdomain_name == null) ? var.domain_name : "${var.subdomain_name}.${var.domain_name}")
   type    = "A"
   ttl     = "300"
   records = [aws_eip.bbb_server.public_ip]

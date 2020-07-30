@@ -10,8 +10,9 @@ provider "aws" {
 module "bbb_instance" {
   source = "./modules"
 
-  aws_ami     = var.aws_ami
-  domain_name = var.domain_name
-  key_path    = var.key_path
-  volume_size = var.volume_size
+  aws_ami        = var.aws_ami
+  domain_name    = var.domain_name
+  subdomain_name = var.subdomain_name
+  key_path       = var.key_path
+  volume_size    = var.volume_size
 }

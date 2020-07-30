@@ -18,6 +18,12 @@ variable "domain_name" {
   default     = "example.com"
 }
 
+variable "subdomain_name" {
+  description = "Server subdomain name"
+  default     = null
+}
+
+
 variable "key_path" {
   description = "Path to your SSH key (public key)"
   default     = "~/.ssh/id_rsa.pub"

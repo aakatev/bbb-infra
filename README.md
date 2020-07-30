@@ -9,13 +9,23 @@ Terraform templates to provision a bigbluebutton server. Ansible playbook to run
 - Terraform 12.x+
 - Ansible 2.9+
 
-## Usage
+## Configuration
 
 Adjust configurations
 
 - [`variables.tf`](variables.tf)
 - [`ansible.cfg`](ansible.cfg)
 - [`hosts`](hosts)
+
+For terraform, you can create a file named `vars.auto.tfvars`, and configure you variables like so
+
+```hcl
+aws_profile    = "custom"
+domain_name    = "custom.com"
+subdomain_name = "test"
+```
+
+## Usage
 
 Initiate a new Terraform state
 
