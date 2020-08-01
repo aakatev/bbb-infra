@@ -1,4 +1,4 @@
 [bigbluebutton]
-server-1.example.com
+1.1.1.1
 [scalelite]
-lb.example.com
+2.2.2.2

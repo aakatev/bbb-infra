@@ -13,11 +13,13 @@ Automation for BigBlueButton stack. Use Terraform and Ansible to provision bigbl
 
 ## Configuration
 
-Adjust configurations
+Adjust configurations (ansible inventory has to be adjusted after ec2 provisioning)
 
 - [`variables.tf`](variables.tf)
 - [`ansible.cfg`](ansible.cfg)
 - [`inventory`](inventory)
+- [`playbooks/bigbluebutton_vars.yaml`](playbooks/bigbluebutton_vars.yaml)
+- [`playbooks/scalelite_vars.yaml`](playbooks/scalelite_vars.yaml)
 
 For terraform, you can create a file named `vars.auto.tfvars`, and configure you variables like so
 
@@ -43,16 +45,21 @@ Plan and apply your changes, provisionning the resources
 terraform apply 
 ```
 
+Install required ansible roles
+
+```sh
+ansible-galaxy install nickjj.docker
+```
+
 Run ansible playbook for bigbluebutton
 
 ```sh
 ansible-playbook playbooks/bigbluebutton.yaml
 ```
 
-Run ansible playbooks for scalelite
+Run ansible playbook for scalelite
 
 ```sh
-ansible-playbook playbooks/docker.yaml
 ansible-playbook playbooks/scalelite.yaml
 ```
 

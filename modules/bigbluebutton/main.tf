@@ -60,7 +60,7 @@ resource "aws_key_pair" "bigbluebutton" {
 
 resource "aws_security_group" "bigbluebutton" {
   name        = "bbb-server-security-group"
-  description = "security group for bbb-server"
+  description = "Security group for bigbluebutton server"
 
   ingress {
     from_port   = 22
