@@ -1,0 +1,4 @@
+[bbb]
+server-1.example.com
+[scalelite]
+lb.example.com

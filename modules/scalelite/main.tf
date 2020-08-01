@@ -113,10 +113,10 @@ resource "aws_instance" "scalelite" {
   }
 }
 
-output "scalelite_private_ip" {
+output "private_ip" {
   value = aws_instance.scalelite.private_ip
 }
 
-output "scalelite_public_ip" {
+output "public_ip" {
   value = aws_eip.scalelite.public_ip
 }

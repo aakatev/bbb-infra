@@ -120,10 +120,10 @@ resource "aws_instance" "bigbluebutton" {
   }
 }
 
-output "bigbluebutton_private_ip" {
+output "private_ip" {
   value = aws_instance.bigbluebutton.private_ip
 }
 
-output "bigbluebutton_public_ip" {
+output "public_ip" {
   value = aws_eip.bigbluebutton.public_ip
 }
