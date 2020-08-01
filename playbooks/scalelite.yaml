@@ -1,0 +1,24 @@
+- hosts: scalelite
+  become: yes
+  tasks:
+  - name: Download scalelite-run
+    git:
+      repo: 'https://github.com/aakatev/scalelite-run.git'
+      dest: /scalelite-run
+  - name: Change file ownership, group and permissions
+    file:
+      path: /scalelite-run/init-letsencrypt.sh
+      mode: '0744'
+  - name: Create .env file
+    copy:
+      dest: /scalelite-run/.env
+      content: |
+        SECRET_KEY_BASE=1548848c3bc63ba2edc217f4d11f81ea247c0eb0b4ea75e2e93a8c0280f652f11199aeaa35f5926e34abcca6fd58dfc41f227c96a1dd7f1b6225442ff222e32f
+        LOADBALANCER_SECRET=e89849413720ea10f69260b8bd735e48b66d21e65a9b1f96
+        URL_HOST=lb.edduus.network
+        NGINX_SSL=true
+  - name: Run scalelite-run
+    command: /bin/bash ./init-letsencrypt.sh
+    args:
+      chdir: /scalelite-run
+  

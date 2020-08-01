@@ -1,0 +1,13 @@
+- hosts: scalelite
+  become: true
+  pre_tasks:
+    - name: Add universe repository for bionic
+      apt_repository: 
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution_release == 'bionic'
+    - name: Upgrade all apt packages
+      apt: upgrade=dist force_apt_get=yes
+  roles:
+    - role: "nickjj.docker"
+      tags: ["docker"]
