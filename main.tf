@@ -10,7 +10,7 @@ provider "aws" {
 module "bigbluebutton_instance" {
   source = "./modules/bigbluebutton"
 
-  key_path       = var.key_path
+  key_path = var.key_path
 
   instance_type  = var.bigbluebutton_instance_type
   aws_ami        = var.bigbluebutton_aws_ami
@@ -22,7 +22,7 @@ module "bigbluebutton_instance" {
 module "scalelite_instance" {
   source = "./modules/scalelite"
 
-  key_path       = var.key_path
+  key_path = var.key_path
 
   instance_type  = var.scalelite_instance_type
   aws_ami        = var.scalelite_aws_ami

@@ -15,7 +15,7 @@ variable "key_path" {
 
 variable "bigbluebutton_instance_type" {
   description = "EC2 instance type (bigbluebutton)"
-  default = "t2.large"
+  default     = "t2.large"
 }
 
 variable "bigbluebutton_aws_ami" {
