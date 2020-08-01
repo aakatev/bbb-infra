@@ -1,3 +1,8 @@
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+}
+
 variable "aws_ami" {
   description = "EC2 instalnce AMI"
   type        = string
@@ -23,20 +28,20 @@ variable "volume_size" {
   type        = number
 }
 
-data "aws_route53_zone" "bbb_server" {
+data "aws_route53_zone" "bigbluebutton" {
   name = var.domain_name
 }
 
-resource "aws_route53_record" "bbb_server" {
-  zone_id = data.aws_route53_zone.bbb_server.zone_id
+resource "aws_route53_record" "bigbluebutton" {
+  zone_id = data.aws_route53_zone.bigbluebutton.zone_id
   name    = ((var.subdomain_name == null) ? var.domain_name : "${var.subdomain_name}.${var.domain_name}")
   type    = "A"
   ttl     = "300"
-  records = [aws_eip.bbb_server.public_ip]
+  records = [aws_eip.bigbluebutton.public_ip]
 }
 
-resource "aws_eip" "bbb_server" {
-  instance = aws_instance.bbb_server.id
+resource "aws_eip" "bigbluebutton" {
+  instance = aws_instance.bigbluebutton.id
   vpc      = true
 
   tags = {
@@ -44,7 +49,7 @@ resource "aws_eip" "bbb_server" {
   }
 }
 
-resource "aws_key_pair" "bbb_server" {
+resource "aws_key_pair" "bigbluebutton" {
   key_name   = "bbb-key"
   public_key = file(var.key_path)
 
@@ -53,7 +58,7 @@ resource "aws_key_pair" "bbb_server" {
   }
 }
 
-resource "aws_security_group" "bbb_server" {
+resource "aws_security_group" "bigbluebutton" {
   name        = "bbb-server-security-group"
   description = "security group for bbb-server"
 
@@ -97,12 +102,12 @@ resource "aws_security_group" "bbb_server" {
   }
 }
 
-resource "aws_instance" "bbb_server" {
-  instance_type = "t2.large"
+resource "aws_instance" "bigbluebutton" {
+  instance_type = var.instance_type
   ami           = var.aws_ami
 
-  key_name        = aws_key_pair.bbb_server.key_name
-  security_groups = [aws_security_group.bbb_server.name]
+  key_name        = aws_key_pair.bigbluebutton.key_name
+  security_groups = [aws_security_group.bigbluebutton.name]
 
   ebs_block_device {
     device_name = "/dev/sda1"
@@ -115,10 +120,10 @@ resource "aws_instance" "bbb_server" {
   }
 }
 
-output "bbb_server_private_ip" {
-  value = aws_instance.bbb_server.private_ip
+output "bigbluebutton_private_ip" {
+  value = aws_instance.bigbluebutton.private_ip
 }
 
-output "bbb_server_public_ip" {
-  value = aws_eip.bbb_server.public_ip
+output "bigbluebutton_public_ip" {
+  value = aws_eip.bigbluebutton.public_ip
 }

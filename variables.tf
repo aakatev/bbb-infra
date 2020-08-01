@@ -8,6 +8,11 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "instance_type" {
+  description = ""
+  default = "t2.large"
+}
+
 variable "aws_ami" {
   description = "EC2 instalnce AMI"
   default     = "ami-039a49e70ea773ffc"
