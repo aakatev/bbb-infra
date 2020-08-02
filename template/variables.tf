@@ -8,9 +8,9 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "key_path" {
-  description = "Path to your SSH public key (shared)"
-  default     = "~/.ssh/id_rsa.pub"
+variable "key_name" {
+  description = "Name for your SSH public key"
+  default     = "bigbluebutton"
 }
 
 variable "bigbluebutton_instance_type" {
@@ -31,6 +31,11 @@ variable "bigbluebutton_domain_name" {
 variable "bigbluebutton_subdomain_name" {
   description = "Server subdomain name (bigbluebutton)"
   default     = null
+}
+
+variable "bigbluebutton_security_group_name" {
+  description = "Name fo bigbluebutton security group"
+  default     = "bigbluebutton-security-group"
 }
 
 variable "bigbluebutton_volume_size" {
@@ -56,6 +61,11 @@ variable "scalelite_domain_name" {
 variable "scalelite_subdomain_name" {
   description = "Server subdomain name (scalelite)"
   default     = null
+}
+
+variable "scalelite_security_group_name" {
+  description = "Name fo scalelite security group"
+  default     = "scalelite-security-group"
 }
 
 variable "scalelite_volume_size" {
