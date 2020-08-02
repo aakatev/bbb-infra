@@ -19,11 +19,11 @@ variable "key_path" {
 }
 
 variable "bigbluebutton_security_group_name" {
-  description = "Name fo bigbluebutton security group"
+  description = "Name for bigbluebutton security group"
   default     = "bigbluebutton-security-group"
 }
 
 variable "scalelite_security_group_name" {
-  description = "Name fo scalelite security group"
+  description = "Name for scalelite security group"
   default     = "scalelite-security-group"
 }

@@ -20,7 +20,7 @@ variable "domain_name" {
 
 variable "subdomain_name" {
   description = "Server subdomain name"
-  type        = any
+  type        = string
 }
 
 variable "key_name" {
@@ -39,7 +39,7 @@ data "aws_route53_zone" "bigbluebutton" {
 
 resource "aws_route53_record" "bigbluebutton" {
   zone_id = data.aws_route53_zone.bigbluebutton.zone_id
-  name    = ((var.subdomain_name == null) ? var.domain_name : "${var.subdomain_name}.${var.domain_name}")
+  name    = "${var.subdomain_name}.${var.domain_name}"
   type    = "A"
   ttl     = "300"
   records = [aws_eip.bigbluebutton.public_ip]

@@ -30,11 +30,16 @@ variable "bigbluebutton_domain_name" {
 
 variable "bigbluebutton_subdomain_name" {
   description = "Server subdomain name (bigbluebutton)"
-  default     = null
+  default     = "server"
+}
+
+variable "bigbluebutton_count" {
+  description = "Number of bigbluebutton servers"
+  default     = 1
 }
 
 variable "bigbluebutton_security_group_name" {
-  description = "Name fo bigbluebutton security group"
+  description = "Name for bigbluebutton security group"
   default     = "bigbluebutton-security-group"
 }
 
@@ -64,7 +69,7 @@ variable "scalelite_subdomain_name" {
 }
 
 variable "scalelite_security_group_name" {
-  description = "Name fo scalelite security group"
+  description = "Name for scalelite security group"
   default     = "scalelite-security-group"
 }
 
