@@ -22,14 +22,14 @@
       mode: '0744'
   - name: Include variables file
     include_vars:
-      file: scalelite_vars.yaml
+      file: ../vars/variables.yaml
   - name: Create .env file
     copy:
       dest: /scalelite-run/.env
       content: |
         SECRET_KEY_BASE={{ secret_key_base }}
-        LOADBALANCER_SECRET={{ loadbalancer_secret }}
-        URL_HOST={{ url_host }}
+        LOADBALANCER_SECRET={{ scalelite_secret }}
+        URL_HOST={{ scalelite_url }}
         NGINX_SSL={{ nginx_ssl }}
   - name: Run scalelite-run
     command: /bin/bash ./init-letsencrypt.sh

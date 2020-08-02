@@ -8,9 +8,9 @@
       mode: 0700
   - name: Include variables file
     include_vars:
-      file: bigbluebutton_vars.yaml
+      file: ../vars/variables.yaml
   - name: Run bbb-install.sh
-    command: /bin/bash /bbb-install.sh -v xenial-22 -s {{ url_host }} -e {{ email }} -w
+    command: /bin/bash /bbb-install.sh -v xenial-22 -s {{ bigbluebutton_url }} -e {{ email }} -w
   - name: Delete bbb-install.sh
     file: 
       path: /bbb-install.sh 

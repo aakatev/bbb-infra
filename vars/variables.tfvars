@@ -1,0 +1,5 @@
+aws_profile                  = "bbb"
+bigbluebutton_domain_name    = "edduus.network"
+bigbluebutton_subdomain_name = "test"
+scalelite_domain_name        = "edduus.network"
+scalelite_subdomain_name     = "lb"

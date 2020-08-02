@@ -1,4 +1,0 @@
-secret_key_base: secret
-loadbalancer_secret: super-secret
-url_host: lb.example.com
-nginx_ssl: true

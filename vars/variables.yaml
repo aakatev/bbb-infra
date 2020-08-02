@@ -1,0 +1,6 @@
+scalelite_url: lb.example.com
+bigbluebutton_url: test.example.com
+secret_key_base: secret
+scalelite_secret: super-secret
+nginx_ssl: true
+email: admin@example.com

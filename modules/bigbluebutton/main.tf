@@ -4,7 +4,12 @@ variable "instance_type" {
 }
 
 variable "aws_ami" {
-  description = "EC2 instalnce AMI"
+  description = "EC2 instance AMI"
+  type        = string
+}
+
+variable "security_group_name" {
+  description = "Name for security group"
   type        = string
 }
 
@@ -18,8 +23,8 @@ variable "subdomain_name" {
   type        = any
 }
 
-variable "key_path" {
-  description = "Path to your SSH key (public key)"
+variable "key_name" {
+  description = "Name for your SSH public key"
   type        = string
 }
 
@@ -49,65 +54,12 @@ resource "aws_eip" "bigbluebutton" {
   }
 }
 
-resource "aws_key_pair" "bigbluebutton" {
-  key_name   = "bbb-key"
-  public_key = file(var.key_path)
-
-  tags = {
-    terraform = true
-  }
-}
-
-resource "aws_security_group" "bigbluebutton" {
-  name        = "bbb-server-security-group"
-  description = "Security group for bigbluebutton server"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 16384
-    to_port     = 32768
-    protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    terraform = true
-  }
-}
-
 resource "aws_instance" "bigbluebutton" {
   instance_type = var.instance_type
   ami           = var.aws_ami
 
-  key_name        = aws_key_pair.bigbluebutton.key_name
-  security_groups = [aws_security_group.bigbluebutton.name]
+  key_name        = var.key_name
+  security_groups = [var.security_group_name]
 
   ebs_block_device {
     device_name = "/dev/sda1"
