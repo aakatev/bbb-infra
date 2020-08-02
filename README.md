@@ -13,14 +13,14 @@ Automation for BigBlueButton stack. Use Terraform and Ansible to provision bigbl
 
 ## Pre-Install
 
-Adjust configurations
+Adjust configurations:
 
 - [`vars/variables.tfvars`](vars/variables.tfvars)
-- [`vars/ansible.cfg`](vars/ansible.cfg)
 - [`vars/inventory`](vars/inventory)
 - [`vars/variables.yaml`](vars/variables.yaml)
+- [`ansible.cfg`](ansible.cfg)
 
-Note, Ansible inventory has to be adjusted after ec2 provisioning
+Note, Ansible inventory has to be adjusted after ec2 provisioning.
 
 ## Infrastructure
 
